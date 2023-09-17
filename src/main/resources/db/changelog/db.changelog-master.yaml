@@ -7,3 +7,7 @@ databaseChangeLog:
         file: db/changelog/changes/003-create-roles-table.yaml
     - include:
         file: db/changelog/changes/004-create-user-role-table.yaml
+    - include:
+          file: db/changelog/changes/005-insert_roles.yaml
+    - include:
+          file: db/changelog/changes/006-insert-admin-user.yaml

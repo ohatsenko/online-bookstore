@@ -7,7 +7,6 @@ import lombok.Data;
 
 @Data
 @FieldMatch(first = "password", second = "repeatPassword", message = "Passwords do not match")
-
 public class UserRegistrationRequestDto {
     @NotBlank
     @Size(min = 5, max = 50)
@@ -22,5 +21,7 @@ public class UserRegistrationRequestDto {
     private String firstName;
     @NotBlank
     private String lastName;
+    @NotBlank
+    @Size(min = 6, max = 100)
     private String shippingAddress;
 }

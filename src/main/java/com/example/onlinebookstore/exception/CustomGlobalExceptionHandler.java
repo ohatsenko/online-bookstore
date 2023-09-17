@@ -1,9 +1,8 @@
 package com.example.onlinebookstore.exception;
 
 import java.time.LocalDateTime;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
+import lombok.Data;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -12,6 +11,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -23,14 +23,22 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             HttpHeaders headers,
             HttpStatusCode status,
             WebRequest request) {
-        Map<String, Object> body = new LinkedHashMap<>();
-        body.put("timestamp", LocalDateTime.now());
-        body.put("status", HttpStatus.BAD_REQUEST);
         List<String> errors = ex.getBindingResult().getAllErrors().stream()
                 .map(e -> getErrorMessage(e))
                 .toList();
-        body.put("errors", errors);
-        return new ResponseEntity<>(body, headers, status);
+        ResponseBody responseBody = new ResponseBody(LocalDateTime.now(),
+                HttpStatus.BAD_REQUEST, errors);
+        return new ResponseEntity<>(responseBody, headers, status);
+    }
+
+    @ExceptionHandler(RegistrationException.class)
+    public ResponseEntity<Object> handleRegistrationException(
+            RegistrationException ex
+    ) {
+        ResponseBody responseBody = new ResponseBody(LocalDateTime.now(),
+                HttpStatus.CONFLICT, List.of(ex.getMessage()));
+        return new ResponseEntity<>(responseBody,
+                HttpStatusCode.valueOf(HttpStatus.CONFLICT.value()));
     }
 
     private String getErrorMessage(ObjectError e) {
@@ -40,5 +48,18 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             return field + " " + message;
         }
         return e.getDefaultMessage();
+    }
+
+    @Data
+    private class ResponseBody {
+        private LocalDateTime timestamp;
+        private HttpStatus status;
+        private List<String> errors;
+
+        public ResponseBody(LocalDateTime timestamp, HttpStatus status, List<String> errors) {
+            this.timestamp = timestamp;
+            this.status = status;
+            this.errors = errors;
+        }
     }
 }

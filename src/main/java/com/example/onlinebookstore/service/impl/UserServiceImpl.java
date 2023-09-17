@@ -28,10 +28,10 @@ public class UserServiceImpl implements UserService {
             throws RegistrationException {
 
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new RegistrationException("Unable to complete registration");
+            throw new RegistrationException("User with such email is already exists");
         }
 
-        User user = new User();
+        User user = userMapper.toModel(request);
         user.setEmail(request.getEmail());
         user.setPassword(encoder.encode(request.getPassword()));
         user.setFirstName(request.getFirstName());
@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
         user.setShippingAddress(request.getShippingAddress());
 
         Set<Role> roles = new HashSet<>();
-        Role defaultRole = roleRepository.findByName(Role.RoleName.ROLE_USER).orElseThrow(
+        Role defaultRole = roleRepository.getByName(Role.RoleName.ROLE_USER).orElseThrow(
                 () -> new RegistrationException("Can't find a role: "
                         + Role.RoleName.ROLE_USER));
         roles.add(defaultRole);
