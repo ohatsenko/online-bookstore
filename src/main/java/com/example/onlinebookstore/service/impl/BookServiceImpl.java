@@ -8,6 +8,7 @@ import com.example.onlinebookstore.model.Book;
 import com.example.onlinebookstore.repository.BookRepository;
 import com.example.onlinebookstore.service.BookService;
 import java.util.List;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookDto save(CreateBookRequestDto createBookRequestDto) {
+        Set<Long> categoryIds = createBookRequestDto.getCategoryIds();
         Book book = bookMapper.toModel(createBookRequestDto);
         Book savedBook = bookRepository.save(book);
         return bookMapper.toDto(savedBook);
