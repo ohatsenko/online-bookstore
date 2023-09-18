@@ -39,9 +39,7 @@ public class UserServiceImpl implements UserService {
         user.setShippingAddress(request.getShippingAddress());
 
         Set<Role> roles = new HashSet<>();
-        Role defaultRole = roleRepository.getByName(Role.RoleName.ROLE_USER).orElseThrow(
-                () -> new RegistrationException("Can't find a role: "
-                        + Role.RoleName.ROLE_USER));
+        Role defaultRole = roleRepository.getByName(Role.RoleName.ROLE_USER);
         roles.add(defaultRole);
         user.setRoles(roles);
         User savedUser = userRepository.save(user);
