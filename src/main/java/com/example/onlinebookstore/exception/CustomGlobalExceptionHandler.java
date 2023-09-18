@@ -26,18 +26,18 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         List<String> errors = ex.getBindingResult().getAllErrors().stream()
                 .map(e -> getErrorMessage(e))
                 .toList();
-        ResponseBody responseBody = new ResponseBody(LocalDateTime.now(),
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(LocalDateTime.now(),
                 HttpStatus.BAD_REQUEST, errors);
-        return new ResponseEntity<>(responseBody, headers, status);
+        return new ResponseEntity<>(errorResponseDto, headers, status);
     }
 
     @ExceptionHandler(RegistrationException.class)
     public ResponseEntity<Object> handleRegistrationException(
             RegistrationException ex
     ) {
-        ResponseBody responseBody = new ResponseBody(LocalDateTime.now(),
+        ErrorResponseDto errorResponseDto = new ErrorResponseDto(LocalDateTime.now(),
                 HttpStatus.CONFLICT, List.of(ex.getMessage()));
-        return new ResponseEntity<>(responseBody,
+        return new ResponseEntity<>(errorResponseDto,
                 HttpStatusCode.valueOf(HttpStatus.CONFLICT.value()));
     }
 
@@ -51,12 +51,12 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     }
 
     @Data
-    private class ResponseBody {
+    private class ErrorResponseDto {
         private LocalDateTime timestamp;
         private HttpStatus status;
         private List<String> errors;
 
-        public ResponseBody(LocalDateTime timestamp, HttpStatus status, List<String> errors) {
+        public ErrorResponseDto(LocalDateTime timestamp, HttpStatus status, List<String> errors) {
             this.timestamp = timestamp;
             this.status = status;
             this.errors = errors;
