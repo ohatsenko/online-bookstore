@@ -1,6 +1,5 @@
 package com.example.onlinebookstore.dto;
 
-import com.example.onlinebookstore.model.Category;
 import com.example.onlinebookstore.validation.CoverImage;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
