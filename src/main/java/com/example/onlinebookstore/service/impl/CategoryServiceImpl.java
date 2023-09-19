@@ -7,7 +7,6 @@ import com.example.onlinebookstore.mapper.BookMapper;
 import com.example.onlinebookstore.mapper.CategoryMapper;
 import com.example.onlinebookstore.model.Book;
 import com.example.onlinebookstore.model.Category;
-import com.example.onlinebookstore.repository.BookRepository;
 import com.example.onlinebookstore.repository.CategoryRepository;
 import com.example.onlinebookstore.service.CategoryService;
 import java.util.List;
@@ -22,7 +21,6 @@ import org.springframework.stereotype.Service;
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final CategoryMapper categoryMapper;
-    private final BookRepository bookRepository;
     private final BookMapper bookMapper;
 
     @Override
@@ -41,8 +39,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto create(CreateCategoryRequestDto requestDto) {
         Category model = categoryMapper.toModel(requestDto);
-        CategoryDto categoryDto = categoryMapper.toDto(categoryRepository.save(model));
-        return categoryDto;
+        return categoryMapper.toDto(categoryRepository.save(model));
     }
 
     @Override

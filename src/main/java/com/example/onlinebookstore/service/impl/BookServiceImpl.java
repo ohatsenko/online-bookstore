@@ -1,6 +1,7 @@
 package com.example.onlinebookstore.service.impl;
 
 import com.example.onlinebookstore.dto.BookDto;
+import com.example.onlinebookstore.dto.BookDtoWithoutCategoryIds;
 import com.example.onlinebookstore.dto.CreateBookRequestDto;
 import com.example.onlinebookstore.exception.EntityNotFoundException;
 import com.example.onlinebookstore.mapper.BookMapper;
@@ -28,9 +29,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> findAll(Pageable pageable) {
+    public List<BookDtoWithoutCategoryIds> findAll(Pageable pageable) {
         return bookRepository.findAll(pageable).stream()
-                .map(bookMapper::toDto)
+                .map(bookMapper::toDtoWithoutCategories)
                 .toList();
     }
 

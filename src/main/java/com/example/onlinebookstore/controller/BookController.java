@@ -1,6 +1,7 @@
 package com.example.onlinebookstore.controller;
 
 import com.example.onlinebookstore.dto.BookDto;
+import com.example.onlinebookstore.dto.BookDtoWithoutCategoryIds;
 import com.example.onlinebookstore.dto.CreateBookRequestDto;
 import com.example.onlinebookstore.service.BookService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,7 +30,7 @@ public class BookController {
 
     @GetMapping
     @Operation(summary = "Find all books")
-    public List<BookDto> getAll(Pageable pageable) {
+    public List<BookDtoWithoutCategoryIds> getAll(Pageable pageable) {
         return bookService.findAll(pageable);
     }
 
