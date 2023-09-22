@@ -2,9 +2,12 @@ package com.example.onlinebookstore.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
@@ -34,7 +37,12 @@ public class Book {
     private BigDecimal price;
     private String description;
     private String coverImage;
-    @ManyToMany(mappedBy = "books")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+         name = "book_category",
+         joinColumns = @JoinColumn(name = "book_id"),
+         inverseJoinColumns = @JoinColumn(name = "category_id")
+ )
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Category> categories;
