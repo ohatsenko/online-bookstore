@@ -39,10 +39,10 @@ public class Book {
     private String coverImage;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
-         name = "book_category",
-         joinColumns = @JoinColumn(name = "book_id"),
-         inverseJoinColumns = @JoinColumn(name = "category_id")
- )
+            name = "book_category",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Category> categories;

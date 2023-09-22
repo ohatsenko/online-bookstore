@@ -1,6 +1,5 @@
 package com.example.onlinebookstore.dto;
 
-import com.example.onlinebookstore.validation.FieldMatch;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
