@@ -13,7 +13,7 @@ public interface ShoppingCartService {
 
     void delete(Long id);
 
-    CartItemDto save(CreateCartItemRequestDto requestDto, Long id);
+    CartItemDto save(CreateCartItemRequestDto requestDto, Long userId);
 
     Set<CartItemDto> findByShoppingCart(Long id);
 }
