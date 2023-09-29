@@ -41,8 +41,8 @@ public class ShoppingCartController {
     @Operation(summary = "Add a book to the shopping cart",
             description = "Add a book to the shopping cart")
     public CartItemDto addBook(@RequestBody @Valid CreateCartItemRequestDto requestDto) {
-        Long id = userService.getAuthenticatedUser().getId();
-        return shoppingCartService.save(requestDto, id);
+        Long userId = userService.getAuthenticatedUser().getId();
+        return shoppingCartService.save(requestDto, userId);
     }
 
     @PutMapping("/cart-items/{id}")
