@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,8 +33,8 @@ public class OrderController {
     @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Get an order history", description
             = "Get an order history")
-    public Set<OrderDto> getOrder() {
-        return orderService.getOrders();
+    public Set<OrderDto> getOrder(Pageable pageable) {
+        return orderService.getOrders(pageable);
     }
 
     @PostMapping
@@ -50,7 +51,7 @@ public class OrderController {
     @Operation(summary = "Get an order items", description
             = "Get an order items")
     public Set<OrderItemDto> getOrderItemsByOrderId(@PathVariable Long orderId) {
-        return orderService.getOrderItemsByOrderId(orderId);
+        return orderService.getAllOrderItemsByOrderId(orderId);
     }
 
     @GetMapping("{orderId}/items/{itemId}")
@@ -59,7 +60,7 @@ public class OrderController {
             = "Get an order's item")
     public OrderItemDto getOrderSpecificItem(@PathVariable Long orderId, @PathVariable
             Long itemId) {
-        return orderService.getOrderItemByOrderIdAndOrderItemId(orderId, itemId);
+        return orderService.getOrderItemById(orderId, itemId);
     }
 
     @PatchMapping("{id}")

@@ -5,15 +5,16 @@ import com.example.onlinebookstore.dto.OrderDto;
 import com.example.onlinebookstore.dto.OrderItemDto;
 import com.example.onlinebookstore.dto.UpdateStatusOrderDto;
 import java.util.Set;
+import org.springframework.data.domain.Pageable;
 
 public interface OrderService {
     void createOrder(CreateOrderRequestDto orderRequestDto);
 
-    Set<OrderDto> getOrders();
+    Set<OrderDto> getOrders(Pageable pageable);
 
-    Set<OrderItemDto> getOrderItemsByOrderId(Long id);
+    OrderItemDto getOrderItemById(Long orderId, Long itemId);
 
-    OrderItemDto getOrderItemByOrderIdAndOrderItemId(Long orderId, Long orderItemId);
+    Set<OrderItemDto> getAllOrderItemsByOrderId(Long orderId);
 
     void updateOrderStatus(Long id, UpdateStatusOrderDto status);
 }

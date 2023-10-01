@@ -1,12 +1,18 @@
 package com.example.onlinebookstore.repository;
 
 import com.example.onlinebookstore.model.Order;
-import java.util.Optional;
-import java.util.Set;
+import java.util.List;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    Set<Order> findAllOrdersByUserId(Long id);
 
-    Optional<Order> getOrderById(Long id);
+    @Query("FROM Order o LEFT JOIN FETCH o.user u "
+            + "LEFT JOIN FETCH o.orderItems i LEFT JOIN FETCH i.book WHERE u.id = :userId")
+    List<Order> findAllByUserId(Pageable pageable, Long userId);
+
+    @Query("FROM Order o LEFT JOIN FETCH o.orderItems oi "
+            + "LEFT JOIN FETCH o.user u WHERE u.id = :userId AND o.id = :orderId")
+    Order findOrderByOrderId(Long orderId, Long userId);
 }

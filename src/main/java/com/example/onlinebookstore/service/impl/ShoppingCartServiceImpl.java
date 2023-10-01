@@ -9,6 +9,7 @@ import com.example.onlinebookstore.mapper.CartItemMapper;
 import com.example.onlinebookstore.mapper.ShoppingCartMapper;
 import com.example.onlinebookstore.model.CartItem;
 import com.example.onlinebookstore.model.ShoppingCart;
+import com.example.onlinebookstore.model.User;
 import com.example.onlinebookstore.repository.CartItemRepository;
 import com.example.onlinebookstore.repository.ShoppingCartRepository;
 import com.example.onlinebookstore.service.BookService;
@@ -63,6 +64,13 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         shoppingCartDto.setUserId(id);
         shoppingCartDto.setCartItems(findByShoppingCart(id));
         return shoppingCartDto;
+    }
+
+    @Override
+    public ShoppingCart createShoppingCartForUser(User user) {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        shoppingCart.setUser(user);
+        return shoppingCartRepository.save(shoppingCart);
     }
 
     private ShoppingCart findShoppingCartByID(Long id) {
