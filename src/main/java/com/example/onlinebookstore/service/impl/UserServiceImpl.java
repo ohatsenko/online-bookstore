@@ -6,11 +6,10 @@ import com.example.onlinebookstore.exception.EntityNotFoundException;
 import com.example.onlinebookstore.exception.RegistrationException;
 import com.example.onlinebookstore.mapper.UserMapper;
 import com.example.onlinebookstore.model.Role;
-import com.example.onlinebookstore.model.ShoppingCart;
 import com.example.onlinebookstore.model.User;
 import com.example.onlinebookstore.repository.RoleRepository;
-import com.example.onlinebookstore.repository.ShoppingCartRepository;
 import com.example.onlinebookstore.repository.UserRepository;
+import com.example.onlinebookstore.service.ShoppingCartService;
 import com.example.onlinebookstore.service.UserService;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,7 +26,7 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final PasswordEncoder encoder;
     private final UserMapper userMapper;
-    private final ShoppingCartRepository shoppingCartRepository;
+    private final ShoppingCartService shoppingCartService;
 
     @Override
     public UserRegistrationResponseDto register(UserRegistrationRequestDto request)
@@ -50,10 +49,7 @@ public class UserServiceImpl implements UserService {
         roles.add(defaultRole);
         user.setRoles(roles);
         User savedUser = userRepository.save(user);
-        ShoppingCart shoppingCart = new ShoppingCart();
-        shoppingCart.setUser(savedUser);
-        shoppingCartRepository.save(shoppingCart);
-
+        shoppingCartService.createShoppingCartForUser(savedUser);
         return userMapper.toUserResponse(savedUser);
     }
 

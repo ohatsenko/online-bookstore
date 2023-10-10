@@ -31,6 +31,8 @@ public class Order {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     private User user;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
