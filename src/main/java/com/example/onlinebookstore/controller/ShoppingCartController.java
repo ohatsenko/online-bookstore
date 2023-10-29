@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ public class ShoppingCartController {
     private final UserService userService;
 
     @GetMapping
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Get user's shopping cart", description = "Get user's shopping cart")
     public ShoppingCartDto getShoppingCart() {
         Long id = userService.getAuthenticatedUser().getId();
@@ -37,6 +39,7 @@ public class ShoppingCartController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_USER')")
     @ResponseStatus(HttpStatus.CREATED)
     @Operation(summary = "Add a book to the shopping cart",
             description = "Add a book to the shopping cart")
@@ -46,6 +49,7 @@ public class ShoppingCartController {
     }
 
     @PutMapping("/cart-items/{id}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @Operation(summary = "Update quantity of book",
             description = "Update quantity of book")
     public UpdateCartItemDto update(
@@ -55,6 +59,7 @@ public class ShoppingCartController {
     }
 
     @DeleteMapping("/cart-items/{id}")
+    @PreAuthorize("hasRole('ROLE_USER')")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @Operation(summary = "Delete a book from the shopping cart",
             description = "Delete a book from the shopping cart")

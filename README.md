@@ -2,7 +2,10 @@
 
 #### Dive into the world of books with our online bookstore.
 
-Welcome to the Bookworm's Haven, a Java Spring Boot application that is designed to make your project development journey smoother and more efficient. This platform combines a rich set of features and modern technologies to create a secure and user-friendly e-commerce experience. Below, you'll discover the key elements and functionalities of the application.
+Welcome to the Bookworm's Haven, a Java Spring Boot application that is designed to make your project development
+journey smoother and more efficient. This platform combines a rich set of features and modern technologies to create a
+secure and user-friendly e-commerce experience. Below, you'll discover the key elements and functionalities of the
+application.
 
 - [Introduction](#introduction)
 - [Technologies & Tools](#technologies)
@@ -54,6 +57,119 @@ Welcome to the Bookworm's Haven, a Java Spring Boot application that is designed
         <br> - Create, modify, and retrieve information about all the books in the store.
         <br> - Track and modify order statuses to enhance order management processes.
 </p>
+<table>
+    <tr>
+        <th>Action</th>
+        <th>Endpoint</th>
+        <th>Access</th>
+    </tr>
+    <tr class="user">
+        <td>Register a new user</td>
+        <td>POST:/api/auth/register</td>
+        <th>all</th>
+    </tr>
+    <tr class="user">
+        <td>Log in</td>
+        <td>POST:/api/auth/login</td>
+        <th>all</th>
+    </tr>
+    <tr class="user">
+        <td>Get all books</td>
+        <td>GET:/api/books</td>
+        <th>user</th>
+    </tr>
+    <tr class="user">
+        <td>Get a certain book by id</td>
+        <td>GET:/api/books/{id}</td>
+        <th>user</th>
+    </tr>
+    <tr class="admin">
+        <td>Add a new book</td>
+        <td>POST:/api/books</td>
+        <th>admin</th>
+    </tr>
+    <tr class="admin">
+        <td>Delete an existing book by id</td>
+        <td>DELETE:/api/books/{id}</td>
+        <th>admin</th>
+    </tr>
+    <tr class="admin">
+        <td>Update an existing book by id</td>
+        <td>PUT:/api/books/{id}</td>
+        <th>admin</th>
+    </tr>
+    <tr class="user">
+        <td>Get books of the category</td>
+        <td>GET:/api/categories/{id}/book</td>
+        <th>user</th>
+    </tr>
+    <tr class="user">
+        <td>Get all categories</td>
+        <td>GET:/api/categories</td>
+        <th>user</th>
+    </tr>
+    <tr class="user">
+        <td>Get a certain category by id</td>
+        <td>GET:/api/categories/{id}</td>
+        <th>user</th>
+    </tr>
+    <tr class="admin">
+        <td>Add a new book category</td>
+        <td>POST:/api/categories</td>
+        <th>admin</th>
+    </tr>
+    <tr class="admin">
+        <td>Change category by id</td>
+        <td>PUT:/api/categories/{id}</td>
+        <th>admin</th>
+    </tr>
+    <tr class="admin">
+        <td>Delete an existing category by id</td>
+        <td>DELETE:/api/categories/{id}</td>
+        <th>admin</th>
+    </tr>
+    <tr class="user">
+        <td>Add a book to a shopping cart</td>
+        <td>POST:/api/сart</td>
+        <th>user</th>
+    </tr>
+    <tr class="user">
+        <td>Get a user's shopping cart</td>
+        <td>GET:/api/сart</td>
+        <th>user</th>
+    </tr>
+        <tr class="user">
+        <td>Update a cart item by its id</td>
+        <td>PUT:/api/cart/cart-item/{id}</td>
+        <th>user</th>
+    </tr>
+    <tr class="user">
+        <td>Delete a cart item by its id</td>
+        <td>DELETE:/api/cart/cart-items/{id}</td>
+        <th>user</th>
+    </tr>
+        <tr class="user">
+        <td>Get all orders</td>
+        <td>GET:/api/orders</td>
+        <th>user</th>
+    </tr>
+        <tr class="user">
+        <td>Get  order items by order id</td>
+        <td>GET:/api/orders/{id}/items</td>
+        <th>user</th>
+    </tr>
+    <tr class="user">
+        <td>Get a certain order item by an order id and its id</td>
+        <td>GET:/api/orders/{orderId}/items/{id}</td>
+        <th>user</th>
+    </tr>
+    <tr class="admin">
+        <td>Update a status of an order by an order id</td>
+        <td>PATCH:/api/orders/{id}</td>
+        <th>admin</th>
+    </tr>
+</table>
+
 </div>
 <hr>
 
@@ -80,8 +196,8 @@ Welcome to the Bookworm's Haven, a Java Spring Boot application that is designed
         <br> 2. Start the Docker container: `docker-compose up`.
         <br> 3. To stop the containers when needed: `docker-compose down`.
         <br> While the application is running, you can access the Swagger UI for API documentation and testing (Optional):
-        <br> 1. Swagger UI URL: <a href="http://localhost:8088/swagger-ui/index.html" target="_blank" class="social-icon">
-        http://localhost:8088/swagger-ui/index.html</a>
+        <br> 1. Swagger UI URL: <a href="http://localhost:8080/swagger-ui/index.html" target="_blank" class="social-icon">
+        http://localhost:8080/swagger-ui/index.html</a>
 </p>
 </div>
 <hr>
@@ -90,7 +206,7 @@ Welcome to the Bookworm's Haven, a Java Spring Boot application that is designed
     <h3> Video Guide </h3>
     <p>
         For a quick visual introduction to our application, check out our short video guide:
-        <br> - <a href="https://www.loom.com/" target="_blank" class="social-icon">
+        <br> - <a href="https://cutt.ly/RwEHebGI" target="_blank" class="social-icon">
 Video Guide</a>.
     </p>
 </div>
@@ -100,9 +216,9 @@ Video Guide</a>.
     <h3> Testing Tools </h3>
     <p>
         This project provides an intuitive interface and detailed API documentation through Swagger, which can be accessed at <a href="http://localhost:8088/swagger-ui/index.html" target="_blank" class="social-icon">
-        http://localhost:8088/swagger-ui/index.html</a>. 
+        http://localhost:8080/swagger-ui/index.html</a>. 
         Additionally, a collection of Postman requests is available in the root directory of this project.
-        `Book Store.postman_collection.json`
+        `BookStore.postman_collection.json`
 
 By default, a user with the role of admin is already saved in the database,
 so you can register as a moderator or log in as an admin using these credentials:
@@ -110,7 +226,7 @@ so you can register as a moderator or log in as an admin using these credentials
 `"email": "admin@mail.com"`
 
 `"password": "adminadmin"`
-    </p>
+</p>
 </div>
 <hr>
 
@@ -121,7 +237,7 @@ so you can register as a moderator or log in as an admin using these credentials
     <p>
         We welcome contributions! If you'd like to contribute or have any questions, please reach out to us on LinkedIn
     </p>
-<a href="https://www.linkedin.com/in/oleksandr-hatsenko-0b5340294/" target="_blank" class="social-icon">
+<a href="https://www.linkedin.com/in/oleksandr-hatsenko/" target="_blank" class="social-icon">
 LinkedIn profile</a>
 
 </div>
