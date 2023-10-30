@@ -53,14 +53,16 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toSet());
         order.setOrderItems(orderItems);
         order.setTotal(order.getOrderItems().stream()
-                .map(e -> e.getBook().getPrice())
+                .map(e -> e.getBook().getPrice().multiply(BigDecimal.valueOf(e.getQuantity())))
                 .reduce(BigDecimal.ZERO, BigDecimal::add));
         orderRepository.save(order);
+        cartItemRepository.deleteAll();
+        orderItemRepository.saveAll(orderItems);
     }
 
     @Override
     public Set<OrderDto> getOrders(Pageable pageable) {
-        return orderRepository.findAllByUserId(pageable,userService.getAuthenticatedUser()
+        return orderRepository.findAllByUserId(pageable, userService.getAuthenticatedUser()
                         .getId()).stream()
                 .map(orderMapper::toDto)
                 .collect(Collectors.toSet());
@@ -92,8 +94,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public void updateOrderStatus(Long id, UpdateStatusOrderDto status) {
-        Order order = orderRepository.findOrderByOrderId(id,
-                userService.getAuthenticatedUser().getId());
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Can't find "
+                        + "an order by id: " + id));
         order.setStatus(status.getStatus());
         orderRepository.save(order);
     }
